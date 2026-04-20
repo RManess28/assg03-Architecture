@@ -158,7 +158,19 @@ void update_flags(enum registr modified_register)
  *   second source register or the immediate value encoded in the
  *   instruction.
  */
-// put your implememtation of add() here below it documentation
+
+void add(uint16_t i)
+{
+  if (FIMM(i))
+  {
+    reg[DR(i)] = reg[SR1(i)] + SEXTIMM(i);
+  }
+  else
+  {
+    reg[DR(i)] = reg[SR1(i)] + reg[SR2(i)];
+  }
+  update_flags(DR(i));
+}
 
 /** @brief logical AND operation
  *
@@ -179,7 +191,19 @@ void update_flags(enum registr modified_register)
  *   second source register or the immediate value encoded in the
  *   instruction.
  */
-// put your implememtation of andlc() here below it documentation
+
+void andlc(uint16_t i)
+{
+  if (FIMM(i))
+  {
+    reg[DR(i)] = reg[SR1(i)] & SEXTIMM(i);
+  }
+  else
+  {
+    reg[DR(i)] = reg[SR1(i)] & reg[SR2(i)];
+  }
+  update_flags(DR(i));
+}
 
 /** @brief logical NOT operation
  *
@@ -193,7 +217,12 @@ void update_flags(enum registr modified_register)
  *   second source register or the immediate value encoded in the
  *   instruction.
  */
-// put your implememtation of notlc() here below it documentation
+
+void notlc(uint16_t i)
+{
+  reg[DR(i)] = ~reg[SR1(i)];
+  update_flags(DR(i));
+}
 
 /** @brief load RPC + offset
  *
